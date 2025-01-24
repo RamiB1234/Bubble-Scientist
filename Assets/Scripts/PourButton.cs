@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler// These are the interfaces the OnPointerUp method requires.
 {
@@ -52,7 +53,10 @@ public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler/
     //Do this when the mouse is clicked over the selectable object this script is attached to.
     public void OnPointerDown(PointerEventData eventData)
     {
-        isPouring = true;
+        if(GetComponent<Button>().interactable)
+        {
+            isPouring = true;
+        }
     }
 
     //Do this when the mouse click on this selectable UI object is released.
@@ -63,5 +67,8 @@ public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler/
             substance.transform.localScale.y * (bubblePercentage/100f);
 
         donePouring = true;
+
+        // Disable button:
+        GetComponent<Button>().interactable = false;
     }
 }
