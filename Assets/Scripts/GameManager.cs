@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     public GameObject substance;
     public GameObject bubbleMask;
 
+    public GameObject max;
+    public GameObject min;
+
     public int percentage = 50;
 
     private TextMeshProUGUI scoreText;
@@ -37,8 +40,15 @@ public class GameManager : MonoBehaviour
 
     private void RandomPercentage()
     {
-        // Generate a random number between 1 and 10, then multiply by 10 to get multiples of 10.
-        percentage=  UnityEngine.Random.Range(1, 11) * 10;
+        int newPercentage;
+        do
+        {
+            // Generate a random multiple of 5 between 5 and 50
+            newPercentage = UnityEngine.Random.Range(1, 11) * 5; // 1 to 10 multiplied by 5
+        }
+        while (newPercentage == percentage); // Ensure it's not the same as the last value
+
+        percentage = newPercentage; // Assign the new value
     }
 
 
@@ -59,6 +69,15 @@ public class GameManager : MonoBehaviour
 
         // Reset target state
         target.GetComponent<Target>().targetReached = false;
+
+        // Randomize target position within bounds
+        float minY = min.transform.position.y;
+        float maxY = max.transform.position.y;
+        float randomY = UnityEngine.Random.Range(minY, maxY);
+
+        Vector3 targetPosition = target.transform.position;
+        targetPosition.y = randomY;
+        target.transform.position = targetPosition;
 
         // Reset bubble mask & remove collider:
         var bubbleScale = bubbleMask.transform.localScale;
