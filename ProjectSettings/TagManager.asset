@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Substance
+  - BubbleMask
   layers:
   - Default
   - TransparentFX
