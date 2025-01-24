@@ -13,6 +13,6 @@ public class Target : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         targetReached = true;
-        GameManager.GetComponent<GameManager>().score += 100;
+        GameManager.GetComponent<GameManager>().Next();
     }
 }

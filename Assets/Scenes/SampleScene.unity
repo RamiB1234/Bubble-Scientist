@@ -482,6 +482,7 @@ MonoBehaviour:
   pourSpeed: 0.005
   bubbleSpeed: 0.005
   bubblePercentage: 100
+  donePouring: 0
 --- !u!114 &649443694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -832,7 +833,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2313ab7436d7a844ea3b7455069792c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
+  pourButton: {fileID: 649443691}
+  substance: {fileID: 304924312}
+  bubbleMask: {fileID: 1768151702}
 --- !u!4 &1017352454
 Transform:
   m_ObjectHideFlags: 0

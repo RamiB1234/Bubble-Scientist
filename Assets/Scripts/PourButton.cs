@@ -9,12 +9,12 @@ public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler/
     public float pourSpeed = 0.001f;
     public float bubbleSpeed = 0.1f;
     public int bubblePercentage = 50;
-    
+    public bool donePouring = false;
+
     private GameObject substance;
     private GameObject bubbleMask;
 
     private bool isPouring = false;
-    private bool donePouring = false;
     private float bubbleHight;
 
     void Start()
