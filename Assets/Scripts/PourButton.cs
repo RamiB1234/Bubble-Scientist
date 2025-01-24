@@ -8,8 +8,9 @@ public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler/
 {
     public float pourSpeed = 0.001f;
     public float bubbleSpeed = 0.1f;
-    public int bubblePercentage = 50;
     public bool donePouring = false;
+
+    public GameManager gameManager;
 
     private GameObject substance;
     private GameObject bubbleMask;
@@ -72,7 +73,7 @@ public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler/
     {
         isPouring =false;
         bubbleHight = substance.transform.localScale.y +
-            substance.transform.localScale.y * (bubblePercentage/100f);
+            substance.transform.localScale.y * (gameManager.GetComponent<GameManager>().percentage/100f);
 
         donePouring = true;
 

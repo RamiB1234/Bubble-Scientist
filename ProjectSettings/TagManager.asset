@@ -8,6 +8,8 @@ TagManager:
   - BubbleMask
   - Score
   - GameManager
+  - Percentage
+  - Target
   layers:
   - Default
   - TransparentFX
