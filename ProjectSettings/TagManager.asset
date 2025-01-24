@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Substance
   - BubbleMask
+  - Score
+  - GameManager
   layers:
   - Default
   - TransparentFX
