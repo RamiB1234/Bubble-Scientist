@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1536
     height: 780.8
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Console
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -448,9 +448,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: e2ad0000
-      m_LastClickedID: 44514
-      m_ExpandedIDs: 0cfbfffff6ad0000
+      m_SelectedIDs: a0f3ffff
+      m_LastClickedID: -3168
+      m_ExpandedIDs: 0cfbffff0eae000014ae0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -521,8 +521,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
-    m_Folders:
-    - Assets/Scripts
+    m_Folders: []
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1192,9 +1191,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 0.78579444, y: -1.0672082, z: 343.23203}
+    m_Target: {x: -0.1683074, y: -0.05430558, z: -0.007789931}
     speed: 2
-    m_Value: {x: 0.78579444, y: -1.0672082, z: 343.23203}
+    m_Value: {x: -0.124393485, y: -0.0589828, z: -0.006230857}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1244,9 +1243,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 3.95703
+    m_Target: 1.888212
     speed: 2
-    m_Value: 3.95703
+    m_Value: 1.7323046
   m_Ortho:
     m_Target: 1
     speed: 2

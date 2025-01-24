@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler// These are the interfaces the OnPointerUp method requires.
@@ -46,6 +47,13 @@ public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler/
             {
                 bubbleScale.y += bubbleSpeed;
                 bubbleMask.transform.localScale = bubbleScale;
+            }
+            else if(donePouring && bubbleMask.TryGetComponent(out BoxCollider2D collider2D)==false)
+            {
+                bubbleMask.AddComponent<BoxCollider2D>();
+                bubbleMask.GetComponent<BoxCollider2D>().isTrigger = true;
+                bubbleMask.GetComponent<BoxCollider2D>().offset= new Vector2(0,1f);
+                bubbleMask.GetComponent<BoxCollider2D>().size= new Vector2(1f,0.01f);
             }
         }
     }
