@@ -17,8 +17,32 @@ public class GameManager : MonoBehaviour
 
     private TextMeshProUGUI scoreText;
     private TextMeshProUGUI percentageText;
+    private TextMeshProUGUI substanceText;
+    
     private GameObject target;
     private int score = 0;
+
+    // Array of substance names
+    private string[] substances = new string[]
+    {
+        "Zorium", "Veltraxium", "Lunorite", "Aetherium", "Kryzium", "Solenite", "Dracontium",
+        "Neotexium", "Plasmonite", "Quintarion", "Xalorine", "Mytherium", "Thalvium", "Obscurium",
+        "Pyranite", "Xenotral", "Flaridium", "Crysalon", "Syntheton", "Orbexium", "Vylantium",
+        "Morbidium", "Phasium", "Helidonium", "Gravonix", "Optarion", "Ferelium", "Glacionite",
+        "Radionyx", "Electranium", "Chronexium", "Vulcanite", "Aquarion", "Tremarix", "Seraphite",
+        "Arkanium", "Zyntheral", "Ecliptium", "Blazium", "Voidite", "Prismatium", "Nexarite",
+        "Fluxorium", "Solarion", "Omnidium", "Clastium", "Pulsarite", "Umbraxium", "Frozium",
+        "Ionix", "Ignatrite", "Luminite", "Kalthorium", "Vyrantium", "Nexalon", "Ceridite",
+        "Zenithium", "Crysium", "Phanthonium", "Stratonite", "Pyrithal", "Biocronium", "Glimphorite",
+        "Quarium", "Tekronium", "Aurorite", "Alvionium", "Thermexium", "Fractonix", "Requium",
+        "Spectrium", "Shynex", "Krythonite", "Cobaltrium", "Zyntharion", "Phraxium", "Protiumite",
+        "Arbitrite", "Magnorite", "Silvium", "Cloronium", "Exolithium", "Pyronox", "Deltanite",
+        "Eridion", "Cyclantrium", "Etheron", "Halonix", "Glowium", "Vesperium", "Arcitium",
+        "Zephorium", "Lumathor", "Cryonex", "Astranite", "Velonix", "Nebulite", "Aurion",
+        "Zyphorium", "Novalon"
+    };
+
+    private string currentSubstance; // Store the current substance name
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,7 +50,11 @@ public class GameManager : MonoBehaviour
         RandomPercentage();
         scoreText = GameObject.FindWithTag("Score").GetComponent<TextMeshProUGUI>();
         percentageText = GameObject.FindWithTag("Percentage").GetComponent<TextMeshProUGUI>();
+        substanceText = GameObject.FindWithTag("SubstanceName").GetComponent<TextMeshProUGUI>(); 
         target = GameObject.FindWithTag("Target");
+
+        SetRandomSubstance(); // Initialize the first substance
+
         StartCoroutine(CheckLoseCondition());
 
     }
@@ -36,6 +64,7 @@ public class GameManager : MonoBehaviour
     {
         scoreText.text = "Score: " + score;
         percentageText.text = percentage+"%";
+        substanceText.text = "Substance: " + currentSubstance;
     }
 
     private void RandomPercentage()
@@ -49,6 +78,13 @@ public class GameManager : MonoBehaviour
         while (newPercentage == percentage); // Ensure it's not the same as the last value
 
         percentage = newPercentage; // Assign the new value
+    }
+
+    private void SetRandomSubstance()
+    {
+        // Pick a random substance
+        int randomIndex = UnityEngine.Random.Range(0, substances.Length);
+        currentSubstance = substances[randomIndex];
     }
 
 
@@ -87,6 +123,7 @@ public class GameManager : MonoBehaviour
         Destroy(bubbleCollider);
 
         RandomPercentage();
+        SetRandomSubstance();
     }
 
     public IEnumerator CheckLoseCondition()

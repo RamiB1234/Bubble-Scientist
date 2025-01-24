@@ -10,6 +10,7 @@ TagManager:
   - GameManager
   - Percentage
   - Target
+  - SubstanceName
   layers:
   - Default
   - TransparentFX
