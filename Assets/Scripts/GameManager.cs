@@ -16,12 +16,15 @@ public class GameManager : MonoBehaviour
     public int percentage = 50;
 
     private TextMeshProUGUI scoreText;
+    private TextMeshProUGUI topScoreText;
     private TextMeshProUGUI percentageText;
     private TextMeshProUGUI substanceText;
     private Image substanceColor;
 
     private GameObject target;
+    
     private int score = 0;
+    private int topScore = 0;
 
     // Array of substance names
     private string[] substances = new string[]
@@ -50,6 +53,7 @@ public class GameManager : MonoBehaviour
     {
         RandomPercentage();
         scoreText = GameObject.FindWithTag("Score").GetComponent<TextMeshProUGUI>();
+        topScoreText = GameObject.FindWithTag("TopScore").GetComponent<TextMeshProUGUI>(); // Find the top sco
         percentageText = GameObject.FindWithTag("Percentage").GetComponent<TextMeshProUGUI>();
         substanceText = GameObject.FindWithTag("SubstanceName").GetComponent<TextMeshProUGUI>();
         substanceColor = GameObject.FindGameObjectWithTag("SubstanceColor").GetComponent<Image>();
@@ -57,8 +61,14 @@ public class GameManager : MonoBehaviour
         target = GameObject.FindWithTag("Target");
 
         SetRandomSubstance(); // Initialize the first substance
+        
+        // Load the top score from PlayerPrefs
+        topScore = PlayerPrefs.GetInt("TopScore", 0);
+        UpdateTopScoreDisplay();
 
         StartCoroutine(CheckLoseCondition());
+
+        //PlayerPrefs.DeleteAll();
 
     }
 
@@ -66,6 +76,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         scoreText.text = "Score: " + score;
+        topScoreText.text = "Top Score: " + topScore;
         percentageText.text = percentage+"%";
         substanceText.text = "Substance: " + currentSubstance;
     }
@@ -102,10 +113,27 @@ public class GameManager : MonoBehaviour
         substance.GetComponent<SpriteRenderer>().color = randomColor;
     }
 
+    private void UpdateTopScore()
+    {
+        if (score > topScore)
+        {
+            topScore = score; // Update top score if the current score exceeds it
+            PlayerPrefs.SetInt("TopScore", topScore); // Save the top score
+            PlayerPrefs.Save(); // Ensure the score is written to disk
+        }
+    }
+
+    private void UpdateTopScoreDisplay()
+    {
+        topScoreText.text = "Top Score: " + topScore;
+    }
+
 
     public void Next()
     {
         score += 100;
+        UpdateTopScore(); // Check and update the top score when moving to the next round
+        UpdateTopScoreDisplay(); // Update the UI display
 
         // Activate button
         pourButton.GetComponent<Button>().interactable = true;

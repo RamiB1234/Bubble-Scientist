@@ -12,6 +12,7 @@ TagManager:
   - Target
   - SubstanceName
   - SubstanceColor
+  - TopScore
   layers:
   - Default
   - TransparentFX
