@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI scoreText;
     private TextMeshProUGUI percentageText;
     private TextMeshProUGUI substanceText;
-    
+    private Image substanceColor;
+
     private GameObject target;
     private int score = 0;
 
@@ -50,7 +51,9 @@ public class GameManager : MonoBehaviour
         RandomPercentage();
         scoreText = GameObject.FindWithTag("Score").GetComponent<TextMeshProUGUI>();
         percentageText = GameObject.FindWithTag("Percentage").GetComponent<TextMeshProUGUI>();
-        substanceText = GameObject.FindWithTag("SubstanceName").GetComponent<TextMeshProUGUI>(); 
+        substanceText = GameObject.FindWithTag("SubstanceName").GetComponent<TextMeshProUGUI>();
+        substanceColor = GameObject.FindGameObjectWithTag("SubstanceColor").GetComponent<Image>();
+        
         target = GameObject.FindWithTag("Target");
 
         SetRandomSubstance(); // Initialize the first substance
@@ -85,6 +88,18 @@ public class GameManager : MonoBehaviour
         // Pick a random substance
         int randomIndex = UnityEngine.Random.Range(0, substances.Length);
         currentSubstance = substances[randomIndex];
+
+        // Generate a random color
+        Color randomColor = new Color(
+            UnityEngine.Random.Range(0f, 1f), // Red
+            UnityEngine.Random.Range(0f, 1f), // Green
+            UnityEngine.Random.Range(0f, 1f)  // Blue
+        );
+
+        // Update the SubstanceColor UI image
+        substanceColor.color = randomColor;
+
+        substance.GetComponent<SpriteRenderer>().color = randomColor;
     }
 
 
@@ -123,7 +138,7 @@ public class GameManager : MonoBehaviour
         Destroy(bubbleCollider);
 
         RandomPercentage();
-        SetRandomSubstance();
+        SetRandomSubstance(); // Set a new random substance and color for the next level
     }
 
     public IEnumerator CheckLoseCondition()
