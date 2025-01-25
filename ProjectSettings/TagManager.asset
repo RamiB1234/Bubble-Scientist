@@ -13,6 +13,8 @@ TagManager:
   - SubstanceName
   - SubstanceColor
   - TopScore
+  - Flame
+  - SubsBackground
   layers:
   - Default
   - TransparentFX

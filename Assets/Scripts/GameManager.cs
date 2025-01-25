@@ -22,7 +22,9 @@ public class GameManager : MonoBehaviour
     private Image substanceColor;
 
     private GameObject target;
-    
+    private GameObject flame;
+    private GameObject subsBackground;
+
     private int score = 0;
     private int topScore = 0;
 
@@ -59,6 +61,8 @@ public class GameManager : MonoBehaviour
         substanceColor = GameObject.FindGameObjectWithTag("SubstanceColor").GetComponent<Image>();
         
         target = GameObject.FindWithTag("Target");
+        flame = GameObject.FindWithTag("Flame");
+        subsBackground = GameObject.FindWithTag("SubsBackground");
 
         SetRandomSubstance(); // Initialize the first substance
         
@@ -111,6 +115,7 @@ public class GameManager : MonoBehaviour
         substanceColor.color = randomColor;
 
         substance.GetComponent<SpriteRenderer>().color = randomColor;
+        subsBackground.GetComponent<SpriteRenderer>().color = randomColor;
     }
 
     private void UpdateTopScore()
@@ -129,8 +134,11 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void Next()
+    public IEnumerator Next()
     {
+        // Wait for a short period after pouring ends to give time for a possible win
+        yield return new WaitForSeconds(2f);
+
         score += 100;
         UpdateTopScore(); // Check and update the top score when moving to the next round
         UpdateTopScoreDisplay(); // Update the UI display
@@ -167,6 +175,7 @@ public class GameManager : MonoBehaviour
 
         RandomPercentage();
         SetRandomSubstance(); // Set a new random substance and color for the next level
+        flame.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     public IEnumerator CheckLoseCondition()

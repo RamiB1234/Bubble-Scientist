@@ -14,6 +14,7 @@ public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler/
 
     private GameObject substance;
     private GameObject bubbleMask;
+    private GameObject flame;
 
     private bool isPouring = false;
     private float bubbleHight;
@@ -22,6 +23,7 @@ public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler/
     {
         substance = GameObject.FindWithTag("Substance");
         bubbleMask = GameObject.FindWithTag("BubbleMask");
+        flame = GameObject.FindWithTag("Flame");
 
         StartCoroutine(BubbleCoroutine());
     }
@@ -46,6 +48,7 @@ public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler/
 
             if (donePouring && bubbleScale.y< bubbleHight)
             {
+                flame.GetComponent<SpriteRenderer>().enabled = true;
                 bubbleScale.y += bubbleSpeed;
                 bubbleMask.transform.localScale = bubbleScale;
             }
@@ -75,9 +78,16 @@ public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler/
         bubbleHight = substance.transform.localScale.y +
             substance.transform.localScale.y * (gameManager.GetComponent<GameManager>().percentage/100f);
 
-        donePouring = true;
-
         // Disable button:
         GetComponent<Button>().interactable = false;
+
+        StartCoroutine(DonePouringDelay());
+    }
+
+    IEnumerator DonePouringDelay()
+    {
+        yield return new WaitForSeconds(0.7f);
+        donePouring = true;
+
     }
 }
