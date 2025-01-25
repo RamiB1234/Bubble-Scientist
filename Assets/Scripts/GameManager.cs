@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
         scoreText.text = "Score: " + score;
         topScoreText.text = "Top Score: " + topScore;
         percentageText.text = percentage+"%";
-        substanceText.text = "Substance: " + currentSubstance;
+        substanceText.text = currentSubstance;
     }
 
     private void RandomPercentage()
