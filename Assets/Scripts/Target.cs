@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
+    public AudioSource correctSFX;
+
     public bool targetReached = false;
     private GameObject GameManager;
 
@@ -12,6 +14,7 @@ public class Target : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        correctSFX.Play();
         targetReached = true;
         StartCoroutine(GameManager.GetComponent<GameManager>().Next());
     }

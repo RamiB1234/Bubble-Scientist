@@ -10,11 +10,13 @@ public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler/
     public float bubbleSpeed = 0.1f;
     public bool donePouring = false;
 
+    public AudioSource pouringSFX;
     public GameManager gameManager;
 
     private GameObject substance;
     private GameObject bubbleMask;
     private GameObject flame;
+    private GameObject pourColor;
 
     private bool isPouring = false;
     private float bubbleHight;
@@ -24,6 +26,7 @@ public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler/
         substance = GameObject.FindWithTag("Substance");
         bubbleMask = GameObject.FindWithTag("BubbleMask");
         flame = GameObject.FindWithTag("Flame");
+        pourColor = GameObject.FindWithTag("PourColor");
 
         StartCoroutine(BubbleCoroutine());
     }
@@ -32,10 +35,29 @@ public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler/
     {
         if (isPouring)
         {
-            var scale = substance.transform.localScale;
-            scale.y += pourSpeed;
-            substance.transform.localScale = scale;
+            // Check if the substance's y scale is less than 0.19
+            if (substance.transform.localScale.y < 0.15f)
+            {
+                var scale = substance.transform.localScale;
+                scale.y += pourSpeed; // Increase the y scale
+                substance.transform.localScale = scale;
+            }
+            else
+            {
+                StopPouring(); // Stop pouring when the y scale reaches 0.19
+            }
+
+            // Debugging to verify the y scale
+            Debug.Log($"Substance Y Scale: {substance.transform.localScale.y}");
         }
+    }
+
+    private void StopPouring()
+    {
+        pourColor.GetComponent<SpriteRenderer>().enabled = false;
+        isPouring = false;
+        pouringSFX.Stop();
+        Debug.Log("Pouring stopped: Substance y scale reached 0.19.");
     }
 
     private IEnumerator BubbleCoroutine()
@@ -67,14 +89,18 @@ public class PourButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler/
     {
         if(GetComponent<Button>().interactable)
         {
+            pourColor.GetComponent<SpriteRenderer>().enabled = true;
             isPouring = true;
+            pouringSFX.Play();
         }
     }
 
     //Do this when the mouse click on this selectable UI object is released.
     public void OnPointerUp(PointerEventData eventData)
     {
+        pourColor.GetComponent<SpriteRenderer>().enabled = false;
         isPouring =false;
+        pouringSFX.Stop();
         bubbleHight = substance.transform.localScale.y +
             substance.transform.localScale.y * (gameManager.GetComponent<GameManager>().percentage/100f);
 

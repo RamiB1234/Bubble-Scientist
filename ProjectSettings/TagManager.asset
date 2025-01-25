@@ -15,6 +15,8 @@ TagManager:
   - TopScore
   - Flame
   - SubsBackground
+  - PourColor
+  - MenuScore
   layers:
   - Default
   - TransparentFX

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject pourButton;
     public GameObject substance;
     public GameObject bubbleMask;
+    public GameObject retryMenu;
 
     public GameObject max;
     public GameObject min;
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     public int percentage = 50;
 
     private TextMeshProUGUI scoreText;
+    private TextMeshProUGUI menuScoreText;
     private TextMeshProUGUI topScoreText;
     private TextMeshProUGUI percentageText;
     private TextMeshProUGUI substanceText;
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
     private GameObject target;
     private GameObject flame;
     private GameObject subsBackground;
+    private GameObject pourColor;
 
     private int score = 0;
     private int topScore = 0;
@@ -55,6 +58,7 @@ public class GameManager : MonoBehaviour
     {
         RandomPercentage();
         scoreText = GameObject.FindWithTag("Score").GetComponent<TextMeshProUGUI>();
+        menuScoreText = GameObject.FindWithTag("MenuScore").GetComponent<TextMeshProUGUI>();
         topScoreText = GameObject.FindWithTag("TopScore").GetComponent<TextMeshProUGUI>(); // Find the top sco
         percentageText = GameObject.FindWithTag("Percentage").GetComponent<TextMeshProUGUI>();
         substanceText = GameObject.FindWithTag("SubstanceName").GetComponent<TextMeshProUGUI>();
@@ -63,6 +67,7 @@ public class GameManager : MonoBehaviour
         target = GameObject.FindWithTag("Target");
         flame = GameObject.FindWithTag("Flame");
         subsBackground = GameObject.FindWithTag("SubsBackground");
+        pourColor = GameObject.FindWithTag("PourColor");
 
         SetRandomSubstance(); // Initialize the first substance
         
@@ -83,6 +88,7 @@ public class GameManager : MonoBehaviour
         topScoreText.text = "Top Score: " + topScore;
         percentageText.text = percentage+"%";
         substanceText.text = currentSubstance;
+        menuScoreText.text = scoreText.text;
     }
 
     private void RandomPercentage()
@@ -116,6 +122,7 @@ public class GameManager : MonoBehaviour
 
         substance.GetComponent<SpriteRenderer>().color = randomColor;
         subsBackground.GetComponent<SpriteRenderer>().color = randomColor;
+        pourColor.GetComponent<SpriteRenderer>().color = randomColor;
     }
 
     private void UpdateTopScore()
@@ -188,8 +195,13 @@ public class GameManager : MonoBehaviour
             if (!target.GetComponent<Target>().targetReached &&
                 bubbleMask.TryGetComponent(out BoxCollider2D collider2D))
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                retryMenu.GetComponent<RectTransform>().position = Vector3.zero;
             }
         }
+    }
+
+    public void RetryButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
